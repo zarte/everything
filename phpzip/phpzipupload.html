@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="phpzipcontrol.php" method="post" enctype="multipart/form-data">
+    <input type="text" name="path" value="" placeholder="路径">
+    <input type="text" name="key" value="">
+    <input type="file" name="program" >
+    <input type="button" value="提交" onclick="uploadfile()">
+</form>
+</body>
+<script>
+        var file_size = 2000000;
+
+    function uploadfile(){
+        var url = 'phpzipcontrol.php';
+        var xhr = new XMLHttpRequest();
+        var formData = new FormData();
+        var zipfile = document.getElementsByName("program")[0].files[0];
+        var key = document.getElementsByName("key")[0].value;
+        var spath = document.getElementsByName("path")[0].value;
+        console.log(zipfile.size);
+        if(zipfile == undefined  || key == ''){
+            return false;
+        }
+        if(zipfile.size > file_size){
+            alert('文件大小超限制');
+            return false;
+        }
+        formData.append("key", key);
+        formData.append("program", zipfile);
+        formData.append("path", spath);
+        xhr.open("POST", url, true);
+        xhr.onreadystatechange  = function () {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {  // 304未修改
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.upload.addEventListener("progress" , onprogress, false);
+        xhr.send(formData);
+    }
+    function onprogress(evt){
+        var loaded = evt.loaded;     //已经上传大小情况
+        var tot = evt.total;      //附件总大小
+        var per = Math.floor(100*loaded/tot);  //已经上传的百分比
+        console.log(per);
+    }
+</script>
+</html>
