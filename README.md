@@ -1,13 +1,11 @@
 ﻿# everything
 小功能部件
 1. Select the Solution Type
-
     | solution type | description |
     | :-------------- | :------------ |
     | Driven Modal | For calculating the mode-based S-parameters |
-    
-2. Set Up the Drawing Region
-3. Coordinate System Settings
+1. Set Up the Drawing Region
+1. Coordinate System Settings
 
 作者：ATmega328
 链接：https://www.zhihu.com/question/38196482/answer/86909928
